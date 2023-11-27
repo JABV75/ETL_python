@@ -17,7 +17,7 @@ chunk_size = 50000
 
 # Loop through each file
 for i in x:
-    file_path = 'D:\\UsX\\Escritorio\\ETL_python\\' + i + '.csv'
+    file_path = 'D:\\UsX\\Escritorio\\data\\' + i + '.csv'
 
     # Detect encoding
     encoding = detect_encoding(file_path)
@@ -60,4 +60,4 @@ for i in x:
 # ... other data cleaning steps ...
 
 # Save the concatenated and cleaned DataFrame to a new CSV file with UTF-8 encoding
-all_data.to_csv('D:\\UsX\\Escritorio\\ETL_python\\cleaned_file.csv', index=False, encoding='utf-8')
+all_data.to_csv('D:\\UsX\\Escritorio\\data\\cleaned_file.csv', index=False, encoding='utf-8')
