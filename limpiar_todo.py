@@ -13,12 +13,12 @@ x = ['2019_01', '2019_02', '2020_01', '2020_02', '2021_01', '2021_02', '2022_01'
 all_data = pd.DataFrame()
 
 # Chunk size for reading CSV files
-chunk_size = 50000
+chunk_size = 90000
 
 # Loop through each file
 for i in x:
     file_path = 'D:\\UsX\\Escritorio\\data\\' + i + '.csv'
-
+    print(i)
     # Detect encoding
     encoding = detect_encoding(file_path)
 
