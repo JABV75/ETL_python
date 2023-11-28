@@ -14,7 +14,7 @@ all_data = pd.DataFrame()
 
 # Chunk size for reading CSV files
 chunk_size = 90000
-
+cont =0
 # Loop through each file
 for i in x:
     
@@ -23,7 +23,7 @@ for i in x:
     
     #open the file in mac
     file_path = '/Users/josebenvenuto/Desktop/data/' + i + '.csv'
-    
+    cont = cont + 1
     print(i)
     # Detect encoding
     encoding = detect_encoding(file_path)
@@ -55,8 +55,8 @@ for i in x:
         chunk['SALES_ORDER_LINE'] = pd.to_numeric(chunk['SALES_ORDER_LINE'], errors='coerce').astype('Int64')
         chunk['SEGMENT1'] = pd.to_numeric(chunk['SEGMENT1'], errors='coerce').astype('Int64')
         chunk['DESCRIPTION'] = chunk['DESCRIPTION'].astype(str)
-        #chunk['TRX_DATE'] = pd.to_datetime(chunk['TRX_DATE'], format='%d-%b-%Y %H:%M:%S', errors='coerce').dt.date
-        chunk['TRX_DATE'] = pd.to_datetime(chunk['TRX_DATE'], format='%d-%b-%Y %H:%M:%S', errors='coerce').dt.strftime('%Y/%m/%d')
+        chunk['TRX_DATE'] = pd.to_datetime(chunk['TRX_DATE'], format='%d-%b-%Y %H:%M:%S', errors='coerce').dt.date
+        #chunk['TRX_DATE'] = pd.to_datetime(chunk['TRX_DATE'], format='%d-%b-%Y %H:%M:%S', errors='coerce').dt.strftime('%Y/%m/%d')
         chunk['INVOICE_CURRENCY_CODE'] = chunk['INVOICE_CURRENCY_CODE'].astype(str)
         chunk['QUANTITY_INVOICED'] = pd.to_numeric(chunk['QUANTITY_INVOICED'], errors='coerce').astype('float64')
         chunk['UNIT_SELLING_PRICE'] = pd.to_numeric(chunk['UNIT_SELLING_PRICE'], errors='coerce').astype('float64')
@@ -65,12 +65,21 @@ for i in x:
 
         # Concatenate the current chunk with the previous ones
         #all_data = pd.concat([all_data, chunk], ignore_index=True)
-
+        
+        #save the chunk for 2 years in a new csv
+        all_data = pd.concat([all_data, chunk], ignore_index=True)
+        
+        if(cont == 2):
+            all_data.to_csv('/Users/josebenvenuto/Desktop/data/'+ i +'_clean.csv', index=False, encoding='utf-8')
+            print('2 years')
+            cont = 0
+            #clean all_data
+            all_data = pd.DataFrame()
         #save the chunk in a new csv in windows
         #chunk.to_csv('D:\\UsX\\Escritorio\\data\\' + i + '_clean.csv', index=False, encoding='utf-8')
         
         #save the chunk in a new csv in mac
-        chunk.to_csv('/Users/josebenvenuto/Desktop/data/' + i + '_clean.csv', index=False, encoding='utf-8')
+        #chunk.to_csv('/Users/josebenvenuto/Desktop/data/' + i + '_clean.csv', index=False, encoding='utf-8')
         
 # ... other data cleaning steps ...
 
