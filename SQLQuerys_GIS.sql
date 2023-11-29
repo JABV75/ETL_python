@@ -44,8 +44,3 @@ CREATE TABLE Fact_ventas (
     FOREIGN KEY (PARTY_NAME) REFERENCES D_clientes(PARTY_NAME),
     FOREIGN KEY (CUSTOMER_TRX_ID) REFERENCES D_transaccion(CUSTOMER_TRX_ID),
 );
-
-INSERT INTO D_clientes (PARTY_NAME, LOCATION_SHIP_TO) VALUES
-('Cliente1', 'Ubicacion1'),
-('Cliente2', 'Ubicacion2'),
-('Cliente3', 'Ubicacion3');
