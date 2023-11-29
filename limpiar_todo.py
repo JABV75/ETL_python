@@ -19,10 +19,10 @@ cont =0
 for i in x:
     
     #open the file in windows
-    #file_path = 'D:\\UsX\\Escritorio\\data\\' + i + '.csv'
+    file_path = 'D:\\UsX\\Escritorio\\data\\' + i + '.csv'
     
     #open the file in mac
-    file_path = '/Users/josebenvenuto/Desktop/data/' + i + '.csv'
+    #file_path = '/Users/josebenvenuto/Desktop/data/' + i + '.csv'
     cont = cont + 1
     print(i)
     # Detect encoding
@@ -39,44 +39,37 @@ for i in x:
         chunk = chunk.apply(lambda x: x.str.encode('utf-8').str.decode('utf-8') if x.dtype == 'O' else x)
 
         # Continue with your data cleaning and manipulation steps
-        chunk = chunk.drop(['SOURCE_NAME', 'CUST_ACCOUNT_ID', 'SITE_USE_CODE', 'LOCATION', 'TAX_CODE', 'SITE_SHIP_TO',
-                            'TAX_SHIP_TO', 'WAREHOUSE_ID', 'LINE_NUMBER', 'SALES_ORDER_SOURCE', 'TAX_RATE', 'ORG_ID',
-                            'INTERFACE_HEADER_ATTRIBUTE2', 'CUST_TRX_TYPE_ID', 'NAME', 'TYPE', 'INVENTORY_ITEM_ID',
-                            'GL_DATE', 'TAX_CLASSIFICATION_CODE', 'QUANTITY_CREDITED', 'EXCHANGE_RATE',
+        chunk = chunk.drop(['SOURCE_NAME', 'SITE_USE_CODE', 'LOCATION', 'TAX_CODE', 'SITE_SHIP_TO', 'LOCATION_SHIP_TO',
+                            'TAX_SHIP_TO', 'ATTRIBUTE10', 'WAREHOUSE_ID', 'TRX_NUMBER', 'LINE_NUMBER', 'SALES_ORDER', 'SALES_ORDER_LINE', 'SALES_ORDER_SOURCE',
+                            'TAX_RATE', 'ORG_ID', 'INTERFACE_HEADER_ATTRIBUTE2', 'CUST_TRX_TYPE_ID', 'NAME', 'TYPE', 'INVOICE_CURRENCY_CODE', 'INVENTORY_ITEM_ID',
+                            'GL_DATE', 'TAX_CLASSIFICATION_CODE', 'QUANTITY_CREDITED', 'UNIT_SELLING_PRICE', 'EXCHANGE_RATE', 'CUSTOMER_TRX_ID',
                             'CUSTOMER_TRX_LINE_ID', 'PARTY_SITE_ID', 'SEGMENT4', 'X'], axis=1)
 
         # Make the columns of the new CSV cast for each type
-        chunk['LOCATION_SHIP_TO'] = chunk['LOCATION_SHIP_TO'].astype(str)
+        chunk['CUST_ACCOUNT_ID'] = pd.to_numeric(chunk['CUST_ACCOUNT_ID'], errors='coerce').astype('Int64')
         chunk['PARTY_NAME'] = chunk['PARTY_NAME'].astype(str)
         chunk['SALES_CHANNEL_CODE'] = chunk['SALES_CHANNEL_CODE'].astype(str)
-        chunk['ATTRIBUTE10'] = chunk['ATTRIBUTE10'].astype(str)
-        chunk['TRX_NUMBER'] = pd.to_numeric(chunk['TRX_NUMBER'], errors='coerce').astype('Int64')
-        chunk['SALES_ORDER'] = pd.to_numeric(chunk['SALES_ORDER'], errors='coerce').astype('Int64')
-        chunk['SALES_ORDER_LINE'] = pd.to_numeric(chunk['SALES_ORDER_LINE'], errors='coerce').astype('Int64')
         chunk['SEGMENT1'] = pd.to_numeric(chunk['SEGMENT1'], errors='coerce').astype('Int64')
         chunk['DESCRIPTION'] = chunk['DESCRIPTION'].astype(str)
         chunk['TRX_DATE'] = pd.to_datetime(chunk['TRX_DATE'], format='%d-%b-%Y %H:%M:%S', errors='coerce').dt.date
         #chunk['TRX_DATE'] = pd.to_datetime(chunk['TRX_DATE'], format='%d-%b-%Y %H:%M:%S', errors='coerce').dt.strftime('%Y/%m/%d')
-        chunk['INVOICE_CURRENCY_CODE'] = chunk['INVOICE_CURRENCY_CODE'].astype(str)
         chunk['QUANTITY_INVOICED'] = pd.to_numeric(chunk['QUANTITY_INVOICED'], errors='coerce').astype('float64')
-        chunk['UNIT_SELLING_PRICE'] = pd.to_numeric(chunk['UNIT_SELLING_PRICE'], errors='coerce').astype('float64')
         chunk['EXTENDED_AMOUNT'] = pd.to_numeric(chunk['EXTENDED_AMOUNT'], errors='coerce').astype('float64')
-        chunk['CUSTOMER_TRX_ID'] = pd.to_numeric(chunk['CUSTOMER_TRX_ID'], errors='coerce').astype('Int64')
-
         # Concatenate the current chunk with the previous ones
         #all_data = pd.concat([all_data, chunk], ignore_index=True)
         
         #save the chunk for 2 years in a new csv
-        all_data = pd.concat([all_data, chunk], ignore_index=True)
+        # all_data = pd.concat([all_data, chunk], ignore_index=True)
         
-        if(cont == 2):
-            all_data.to_csv('/Users/josebenvenuto/Desktop/data/'+ i +'_clean.csv', index=False, encoding='utf-8')
-            print('2 years')
-            cont = 0
-            #clean all_data
-            all_data = pd.DataFrame()
+        # if(cont == 2):
+        #     all_data.to_csv('/Users/josebenvenuto/Desktop/data/'+ i +'_clean.csv', index=False, encoding='utf-8')
+        #     print('2 years')
+        #     cont = 0
+        #     #clean all_data
+        #     all_data = pd.DataFrame()
+
         #save the chunk in a new csv in windows
-        #chunk.to_csv('D:\\UsX\\Escritorio\\data\\' + i + '_clean.csv', index=False, encoding='utf-8')
+        chunk.to_csv('D:\\UsX\\Escritorio\\data\\' + i + '_clean.csv', index=False, encoding='utf-8')
         
         #save the chunk in a new csv in mac
         #chunk.to_csv('/Users/josebenvenuto/Desktop/data/' + i + '_clean.csv', index=False, encoding='utf-8')
