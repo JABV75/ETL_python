@@ -1,3 +1,4 @@
+-- 1 Elegir la base de datos
 USE GIS
 ---DDL
 --DROP TABLE D_clientes
