@@ -1,6 +1,5 @@
--- 1 Elegir la base de datos
 USE GIS
----DDL
+---PARTE 1 CREACION DE DDL
 --DROP TABLE D_clientes
 CREATE TABLE D_clientes (
 	CUST_ACCOUNT_ID FLOAT PRIMARY KEY,
