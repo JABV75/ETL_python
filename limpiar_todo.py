@@ -2,8 +2,7 @@
 import pandas as pd
 import chardet
 
-__path__ = '/Users/josebenvenuto/Desktop/'
-__data_path__ = '/Users/josebenvenuto/Desktop/data/'
+__path__ = '/Users/josebenvenuto/Desktop/data/'
 
 #En esta sección se crea la función para detectar la codificación de los caracteres en los datos
 def detect_encoding(file_path):
@@ -65,4 +64,4 @@ for i in x:
         #chunk.to_csv(__data_path__ + i + '_clean.csv', index=False, encoding='utf-8')
         
         #save the chunk in a new csv in mac
-        chunk.to_csv(__data_path__ + i + '_clean.csv', index=False, encoding='utf-8')
+        chunk.to_csv(__path__ + i + '_clean.csv', index=False, encoding='utf-8')
