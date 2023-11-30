@@ -2,7 +2,13 @@
 import pandas as pd
 import chardet
 
-__path__ = '/Users/josebenvenuto/Desktop/data/'
+#Cambiar el path de acuerdo a la ubicación de los archivos a leer
+#En macos
+
+#__path__ = '/Users/josebenvenuto/Desktop/data/'
+
+#En windows
+__path__ = 'D:\\UsX\\Escritorio\\data\\'
 
 #En esta sección se crea la función para detectar la codificación de los caracteres en los datos
 def detect_encoding(file_path):
